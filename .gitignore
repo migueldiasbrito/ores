@@ -1,3 +1,9 @@
+*.vcxproj*
+
+Ores/.vs
+Ores/Debug
+Ores/x64
+
 # Prerequisites
 *.d
 
