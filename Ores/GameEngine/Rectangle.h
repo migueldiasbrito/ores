@@ -7,7 +7,7 @@ namespace ores {
     namespace game_engine {
         class Rectangle : public GameObject {
 		public:
-			//! Constructor with color
+			//! Constructor
 			/*!
 			\param x top left corner coordinate x
 			\param y top left corner coordinate y
@@ -20,14 +20,7 @@ namespace ores {
 			*/
 			Rectangle(float x, float y, float width, float height, int red, int green, int blue, int alpha);
 
-			//! Draws the object
 			void Draw(SDL_Renderer* gRenderer);
-
-			//! Updates the object
-			/*!
-			\param elapsedTime elapsed time since the last update
-			\returns false if it should be destroyed
-			*/
 			void Update(float elapsedTime);
 		private:
 			//! Top left corner x

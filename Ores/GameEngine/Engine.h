@@ -26,19 +26,22 @@ namespace ores {
 			
 			//! Terminates the engine
 			void Close();
+
+			//! Returns the renderer
+			inline SDL_Renderer* GetRenderer() { return renderer; }
 		private:
 			//! SDL Window.
 			/*!
 			The window is created on init method and destroyed on close
 			*/
-			SDL_Window* gWindow = NULL;
+			SDL_Window* window = NULL;
 
 			//! SDL Renderer.
 			/*!
 			The renderer is reponsible for all drawing operations. Like the SDL
 			window, is created on init and destroyed on close
 			*/
-			SDL_Renderer* gRenderer = NULL;
+			SDL_Renderer* renderer = NULL;
 
 			//! Looping
 			/*!

@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include <iostream>
+#include <SDL_ttf.h>
 
 namespace engine = ::ores::game_engine;
 
@@ -9,16 +10,16 @@ bool engine::Engine::Init() {
 		return false;
 	}
 
-	gWindow = SDL_CreateWindow("Ores", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);
+	window = SDL_CreateWindow("Ores", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 0, 0, SDL_WINDOW_FULLSCREEN_DESKTOP);
 
-	if (gWindow == NULL) {
+	if (window == NULL) {
 		std::cout << "Window could not be created! SDL_Error: " << SDL_GetError() << std::endl;
 		return false;
 	}
 
-	gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
-	if (gRenderer == NULL) {
+	if (renderer == NULL) {
 		std::cout << "Renderer could not be created! SDL Error: " << SDL_GetError()
 			<< std::endl;
 		return false;
@@ -35,15 +36,15 @@ bool engine::Engine::Init() {
 	}*/
 
 	// start font loader
-	/*if (TTF_Init() == -1)
+	if (TTF_Init() == -1)
 	{
 		std::cout << "SDL_ttf could not initialize! SDL_ttf Error: "
 			<< TTF_GetError() << std::endl;
 		return false;
-	}*/
-	/*
+	}
+	
 	// start audio loader
-	if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+	/*if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
 	{
 		cout << "SDL_mixer could not initialize! SDL_mixer Error : "
 			<< Mix_GetError() << endl;
@@ -75,14 +76,14 @@ void engine::Engine::Close() {
 	//fontCashe.close();
 	//soundCashe.close();
 
-	SDL_DestroyRenderer(gRenderer);
-	gRenderer = NULL;
+	SDL_DestroyRenderer(renderer);
+	renderer = NULL;
 
-	SDL_DestroyWindow(gWindow);
-	gWindow = NULL;
+	SDL_DestroyWindow(window);
+	window = NULL;
 
 	//Mix_Quit();
-	//TTF_Quit();
+	TTF_Quit();
 	//IMG_Quit();
 	SDL_Quit();
 }
@@ -100,16 +101,16 @@ void engine::Engine::Update(float elapsedTime) {
 void engine::Engine::Draw() {
 	int i;
 
-	SDL_SetRenderDrawColor(this->gRenderer, 0x00, 0x00, 0x00, 0xFF);
-	SDL_RenderClear(this->gRenderer);
+	SDL_SetRenderDrawColor(this->renderer, 0x00, 0x00, 0x00, 0xFF);
+	SDL_RenderClear(this->renderer);
 
 	for (i = 0; i < gameObjects.size(); ++i) {
 		if (gameObjects[i] != NULL) {
-			gameObjects[i]->Draw(this->gRenderer);
+			gameObjects[i]->Draw(this->renderer);
 		}
 	}
 
-	SDL_RenderPresent(this->gRenderer);
+	SDL_RenderPresent(this->renderer);
 }
 
 void engine::Engine::HandleInput() {
