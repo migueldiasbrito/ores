@@ -20,7 +20,7 @@ namespace ores {
 			*/
 			Rectangle(float x, float y, float width, float height, int red, int green, int blue, int alpha);
 
-			void Draw(SDL_Renderer* gRenderer);
+			void Draw(SDL_Renderer* renderer);
 			void Update(float elapsedTime);
 		private:
 			//! Top left corner x

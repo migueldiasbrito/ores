@@ -72,9 +72,14 @@ void engine::Engine::Loop() {
 }
 
 void engine::Engine::Close() {
-	//imageCache.Close();
-	//fontCashe.close();
-	//soundCashe.close();
+	int i = 0;
+
+	for (; i < this->gameObjects.size(); ++i) {
+		delete this->gameObjects[i];
+		this->gameObjects[i] = NULL;
+	}
+
+	this->gameObjects.clear();
 
 	SDL_DestroyRenderer(renderer);
 	renderer = NULL;
@@ -91,9 +96,9 @@ void engine::Engine::Close() {
 void engine::Engine::Update(float elapsedTime) {
 	int i;
 
-	for (i = 0; i < gameObjects.size(); ++i) {
-		if (gameObjects[i] != NULL) {
-			gameObjects[i]->Update(elapsedTime);
+	for (i = 0; i < this->gameObjects.size(); ++i) {
+		if (this->gameObjects[i] != NULL) {
+			this->gameObjects[i]->Update(elapsedTime);
 		}
 	}
 }
@@ -104,9 +109,9 @@ void engine::Engine::Draw() {
 	SDL_SetRenderDrawColor(this->renderer, 0x00, 0x00, 0x00, 0xFF);
 	SDL_RenderClear(this->renderer);
 
-	for (i = 0; i < gameObjects.size(); ++i) {
-		if (gameObjects[i] != NULL) {
-			gameObjects[i]->Draw(this->renderer);
+	for (i = 0; i < this->gameObjects.size(); ++i) {
+		if (this->gameObjects[i] != NULL) {
+			this->gameObjects[i]->Draw(this->renderer);
 		}
 	}
 

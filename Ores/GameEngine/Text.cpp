@@ -33,3 +33,8 @@ engine::Text::Text(SDL_Renderer* renderer, FontCache& fontCache, std::string fon
     this->x = x;
     this->y = y;
 }
+
+void engine::Text::CenterAt(float x, float y, float width, float height) {
+    this->x = x + width / 2.0f - this->width / 2.0f;
+    this->y = y + height/ 2.0f - this->height/ 2.0f;
+}

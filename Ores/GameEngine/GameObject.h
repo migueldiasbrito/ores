@@ -11,7 +11,7 @@ namespace ores {
             /*!
             \param gRenderer SDL Renderer where to be drawn
             */
-            virtual void Draw(SDL_Renderer* gRenderer) = 0;
+            virtual void Draw(SDL_Renderer* renderer) = 0;
 
             //! Updates the object
             /*!

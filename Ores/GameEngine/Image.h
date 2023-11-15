@@ -10,7 +10,7 @@ namespace ores {
             //! Deallocates the SDL_Texture
             ~Image();
 
-            void Draw(SDL_Renderer* gRenderer);
+            void Draw(SDL_Renderer* renderer);
             void Update(float elapsedTime);
         protected:
             //! Texture to be drawn
