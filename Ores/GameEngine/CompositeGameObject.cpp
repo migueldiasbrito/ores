@@ -36,3 +36,11 @@ void engine::CompositeGameObject::Update(float elapsedTime) {
         this->gameObjects[i]->Update(elapsedTime);
     }
 }
+
+void engine::CompositeGameObject::OnClick(int x, int y) {
+    int i = 0;
+
+    for (; i < this->gameObjects.size(); ++i) {
+        this->gameObjects[i]->OnClick(x, y);
+    }
+}

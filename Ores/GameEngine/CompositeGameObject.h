@@ -22,6 +22,7 @@ namespace ores {
 
             void Draw(SDL_Renderer* renderer);
             void Update(float elapsedTime);
+            void OnClick(int x, int y);
         protected:
             //! Array with Game Objects that form the Composite.
             std::vector<GameObject*> gameObjects;
