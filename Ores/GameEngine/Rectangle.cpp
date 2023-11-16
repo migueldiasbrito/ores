@@ -15,5 +15,3 @@ void engine::Rectangle::Draw(SDL_Renderer* renderer) {
 
     SDL_RenderFillRect(renderer, &rect);
 }
-
-void engine::Rectangle::Update(float elapsedTime) {}

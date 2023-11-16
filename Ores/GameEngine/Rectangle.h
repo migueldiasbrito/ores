@@ -45,31 +45,30 @@ namespace ores {
             inline float GetHeight() { return this->height; }
 
             void Draw(SDL_Renderer* renderer);
-            void Update(float elapsedTime);
         private:
             //! Top left corner x
-            float x;
+            float x = 0.0f;
 
             //! Top left corner y
-            float y;
+            float y = 0.0f;
 
             //! Object width
-            float width;
+            float width = 0.0f;
 
             //! Object height
-            float height;
+            float height = 0.0f;
 
             //! Object rgba color red component
-            int red;
+            int red = 0x00;
 
             //! Object rgba color green component
-            int green;
+            int green = 0x00;
 
             //! Object rgba color blue component
-            int blue;
+            int blue = 0x00;
 
             //! Object rgba color alpha component
-            int alpha;
+            int alpha = 0x00;
         };
     }
 }

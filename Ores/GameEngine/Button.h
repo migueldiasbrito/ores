@@ -39,7 +39,7 @@ namespace ores {
 
         private:
             //! Button clicked callback
-            std::function<void()> callback;
+            std::function<void()> callback = {};
 
             //! Returns the button rectangle background
             inline Rectangle* GetRectangle() { return (Rectangle*)this->gameObjects[0]; }

@@ -25,6 +25,13 @@ namespace ores {
             Text(SDL_Renderer* renderer, FontCache& fontCache, std::string fontFilename, int fontSize,
                 std::string text, float x, float y, int red, int green, int blue, int alpha);
 
+            //! Centers the text in a rectangle
+            /*!
+            \param x rectangle top left corner coordinate x
+            \param y rectangle top left corner coordinate y
+            \param width rectangle width
+            \param height rectangle height
+            */
             void CenterAt(float x, float y, float width, float height);
         };
     }

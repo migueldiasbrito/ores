@@ -11,22 +11,21 @@ namespace ores {
             ~Image();
 
             void Draw(SDL_Renderer* renderer);
-            void Update(float elapsedTime);
         protected:
             //! Texture to be drawn
-            SDL_Texture* texture;
+            SDL_Texture* texture = NULL;
 
             //! Top left corner x
-            float x;
+            float x = 0.0f;
 
             //! Top left corner y
-            float y;
+            float y = 0.0f;
 
             //! Object width
-            float width;
+            float width = 0.0f;
 
             //! Object height
-            float height;
+            float height = 0.0f;
         };
     }
 }
