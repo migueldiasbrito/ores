@@ -16,9 +16,16 @@ namespace ores {
             //! Updates the object
             /*!
             \param elapsedTime elapsed time since the last update
-            \returns false if it should be destroyed
             */
-            virtual void Update(float elapsedTime) = 0;
+            virtual void Update(float elapsedTime) {};
+
+
+            //! Handles clicks in the object
+            /*!
+            \param x click x coordinate
+            \param y click y coordinate
+            */
+            virtual void OnClick(int x, int y) {};
         };
     }
 }

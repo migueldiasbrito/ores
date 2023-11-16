@@ -6,62 +6,65 @@
 #include "GameObject.h"
 
 namespace ores {
-	namespace game_engine {
-		class Engine {
-		public:
-			//! Starts the graphics engine
-			/*!
-			\return true if the engine started
-			*/
-			bool Init();
+    namespace game_engine {
+        class Engine {
+        public:
+            //! Starts the graphics engine
+            /*!
+            \return true if the engine started
+            */
+            bool Init();
 
-			//! Adds a game object to be drawn
-			/*!
-			\param gameObject Object to be added
-			*/
-			void AddGameObject(GameObject* gameObject);
+            //! Adds a game object to be drawn
+            /*!
+            \param gameObject Object to be added
+            */
+            void AddGameObject(GameObject* gameObject);
 
-			//! Handles the engine loop
-			void Loop();
-			
-			//! Terminates the engine
-			void Close();
+            //! Handles the engine loop
+            void Loop();
 
-			//! Returns the renderer
-			inline SDL_Renderer* GetRenderer() { return renderer; }
-		private:
-			//! SDL Window.
-			/*!
-			The window is created on init method and destroyed on close
-			*/
-			SDL_Window* window = NULL;
+            //! Terminates the engine
+            void Close();
 
-			//! SDL Renderer.
-			/*!
-			The renderer is reponsible for all drawing operations. Like the SDL
-			window, is created on init and destroyed on close
-			*/
-			SDL_Renderer* renderer = NULL;
+            //! Returns the renderer
+            inline SDL_Renderer* GetRenderer() { return renderer; }
 
-			//! Looping
-			/*!
-			Engine is looping
-			*/
-			bool looping = false;
+            //! Stops the loop after the current iteration
+            inline void StopLoop() { this->looping = false; }
+        private:
+            //! SDL Window.
+            /*!
+            The window is created on init method and destroyed on close
+            */
+            SDL_Window* window = NULL;
 
-			//! Array with all Game Objects.
-			std::vector<GameObject*> gameObjects;
+            //! SDL Renderer.
+            /*!
+            The renderer is reponsible for all drawing operations. Like the SDL
+            window, is created on init and destroyed on close
+            */
+            SDL_Renderer* renderer = NULL;
 
-			//! Updates all Game Objects
-			void Update(float elapsedTime);
+            //! Looping
+            /*!
+            Engine is looping
+            */
+            bool looping = false;
 
-			//! Draws all Game Objects
-			void Draw();
+            //! Array with all Game Objects.
+            std::vector<GameObject*> gameObjects;
 
-			//! Handles input
-			void HandleInput();
-		};
-	}
+            //! Updates all Game Objects
+            void Update(float elapsedTime);
+
+            //! Draws all Game Objects
+            void Draw();
+
+            //! Handles input
+            void HandleInput();
+        };
+    }
 }
 
 #endif  // ORES_GAMEENGINE_ENGINE_H_
