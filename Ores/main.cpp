@@ -1,14 +1,26 @@
+#include "Data/DataReaders.h"
+#include "Data/GridModel.h"
 //#include "GameEngine/Button.h"
 #include "GameEngine/Engine.h"
 #include "GameEngine/FontCache.h"
-#include "Presentation/MetaContext.h"
 //#include "GameEngine/Rectangle.h"
 //#include "GameEngine/Text.h"
+#include "Presentation/MetaContext.h"
+#include "Services/ServiceLocator.h"
+#include "Services/GridService.h"
+#include "Services/NotificationService.h"
 
 int main(int argc, char* args[])
 {
     ores::game_engine::Engine engine;
     ores::game_engine::FontCache fontCache;
+    ores::data::GridModel gridModel;
+    ores::services::GridService gridService(&gridModel);
+    ores::services::NotificationService notificationService;
+
+    ores::data::DataReaders::AddDataReader<ores::data::IGridDataReader>(&gridModel);
+    ores::services::ServiceLocator::AddService<ores::services::IGridService>(&gridService);
+    ores::services::ServiceLocator::AddService<ores::services::INotificationService>(&notificationService);
 
     engine.Init();
 

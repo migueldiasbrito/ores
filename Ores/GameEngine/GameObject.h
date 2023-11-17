@@ -9,7 +9,7 @@ namespace ores {
         public:
             //! Draws the object
             /*!
-            \param gRenderer SDL Renderer where to be drawn
+            \param renderer SDL Renderer where to be drawn
             */
             virtual void Draw(SDL_Renderer* renderer) = 0;
 
