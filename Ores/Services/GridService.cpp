@@ -18,6 +18,7 @@ void services::GridService::StartGame() {
                 this->gridModel->boxes[i][j] = NULL;
             }
             else {
+                // Add this 5 to balancing
                 this->gridModel->boxes[i][j] = new data::Box(rand() % 5);
             }
         }

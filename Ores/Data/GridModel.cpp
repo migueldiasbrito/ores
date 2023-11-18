@@ -8,6 +8,7 @@ data::GridModel::GridModel() {
     int j = 0;
     std::vector<Box*>* row;
 
+    // Add these 10 to balancing
     for (; i < 10; i++) {
         row = new std::vector<Box*>();
         for (j = 0; j < 10; j++) {
