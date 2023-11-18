@@ -8,6 +8,11 @@ namespace ores {
         class GridModel :
             public IGridDataReader
         {
+        public:
+            GridModel();
+            ~GridModel();
+            std::vector<std::vector<Box*>> GetBoxes();
+            std::vector<std::vector<Box*>> boxes;
         };
     }
 }

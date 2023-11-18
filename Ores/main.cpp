@@ -9,6 +9,7 @@
 #include "Services/ServiceLocator.h"
 #include "Services/GridService.h"
 #include "Services/NotificationService.h"
+#include <time.h>
 
 int main(int argc, char* args[])
 {
@@ -17,6 +18,8 @@ int main(int argc, char* args[])
     ores::data::GridModel gridModel;
     ores::services::GridService gridService(&gridModel);
     ores::services::NotificationService notificationService;
+
+    srand(time(NULL));
 
     ores::data::DataReaders::AddDataReader<ores::data::IGridDataReader>(&gridModel);
     ores::services::ServiceLocator::AddService<ores::services::IGridService>(&gridService);

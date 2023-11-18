@@ -5,7 +5,10 @@
 
 namespace ores {
     namespace services {
-        class IGridService : IService {};
+        class IGridService : IService {
+        public:
+            virtual void StartGame() = 0;
+        };
     }
 }
 

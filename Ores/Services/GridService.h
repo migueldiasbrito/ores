@@ -13,6 +13,8 @@ namespace ores {
             \param gridModel GridModel in which this service acts
             */
             GridService(data::GridModel* gridModel);
+
+            void StartGame();
         private:
             //! GridModel in which this service acts
             data::GridModel* gridModel;
