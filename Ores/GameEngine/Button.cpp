@@ -16,8 +16,8 @@ engine::Button::Button(SDL_Renderer* renderer, FontCache& fontCache, float x, fl
 }
 
 void engine::Button::OnClick(int x, int y) {
-    if (x >= this->GetRectangle()->GetX() && x <= this->GetRectangle()->GetWidth() && y >= this->GetRectangle()->GetY()
-        && y <= this->GetRectangle()->GetHeight()) {
+    if (x >= this->GetRectangle()->GetLeft() && x <= this->GetRectangle()->GetRight()
+        && y >= this->GetRectangle()->GetTop() && y <= this->GetRectangle()->GetBottom()) {
         this->callback();
     }
 }

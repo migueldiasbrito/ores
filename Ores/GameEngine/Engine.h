@@ -15,11 +15,11 @@ namespace ores {
             */
             bool Init();
 
-            //! Adds a game object to be drawn
+            //! Loads and changes the displayed scene
             /*!
-            \param gameObject Object to be added
+            \param scene scene to be loaded
             */
-            void AddGameObject(GameObject* gameObject);
+            void LoadScene(GameObject* scene);
 
             //! Handles the engine loop
             void Loop();
@@ -52,8 +52,8 @@ namespace ores {
             */
             bool looping = false;
 
-            //! Array with all Game Objects.
-            std::vector<GameObject*> gameObjects;
+            //! Current scene displayed
+            GameObject* currentScene;
 
             //! Updates all Game Objects
             void Update(float elapsedTime);

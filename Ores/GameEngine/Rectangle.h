@@ -20,29 +20,29 @@ namespace ores {
             */
             Rectangle(float x, float y, float width, float height, int red, int green, int blue, int alpha);
 
-            //! Returns Rectangle x coordinate
+            //! Returns Rectangle left x coordinate
             /*!
-            \return Rectangle x coordinate
+            \return Rectangle lefy x coordinate
             */
-            inline float GetX() { return this->x; }
+            inline float GetLeft() { return this->x; }
 
-            //! Returns Rectangle y coordinate
+            //! Returns Rectangle top y coordinate
             /*!
-            \return Rectangle y coordinate
+            \return Rectangle top y coordinate
             */
-            inline float GetY() { return this->y; }
+            inline float GetTop() { return this->y; }
 
-            //! Returns Rectangle width
+            //! Returns Rectangle right x coordinate
             /*!
-            \return Rectangle width
+            \return Rectangle right x coordinate
             */
-            inline float GetWidth() { return this->width; }
+            inline float GetRight() { return this->x + this->width; }
 
-            //! Returns Rectangle height
+            //! Returns Rectangle bottom y coordinate
             /*!
-            \return Rectangle height
+            \return Rectangle bottom y coordinate
             */
-            inline float GetHeight() { return this->height; }
+            inline float GetBottom() { return this->y + this->height; }
 
             void Draw(SDL_Renderer* renderer);
         private:

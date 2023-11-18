@@ -27,7 +27,7 @@ int main(int argc, char* args[])
     //engine.AddGameObject(new ores::game_engine::Rectangle(0, 0, 100, 100, 0xFF, 0xFF, 0xFF, 0xFF));
     //engine.AddGameObject(new ores::game_engine::Text(engine.GetRenderer(), fontCache, "../../Resources/Fonts/consola.ttf", 28, "Le Text", 200, 200, 0xFF, 0xFF, 0xFF, 0xFF));
     //engine.AddGameObject(new ores::game_engine::Button(engine.GetRenderer(), fontCache, 0, 0, 400, 100, 0xFF, 0xFF, 0xFF, 0xFF, "../../Resources/Fonts/consola.ttf", 28, "Le Text", 0x00, 0x00, 0x00, 0xFF, [&engine] { engine.StopLoop(); }));
-    engine.AddGameObject(new ores::presentation::MetaContext(engine, fontCache));
+    engine.LoadScene(new ores::presentation::MetaContext(engine, fontCache));
 
     engine.Loop();
 

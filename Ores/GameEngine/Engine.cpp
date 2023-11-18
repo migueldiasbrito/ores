@@ -54,8 +54,10 @@ bool engine::Engine::Init() {
     return true;
 }
 
-void engine::Engine::AddGameObject(GameObject* gameObject) {
-    gameObjects.push_back(gameObject);
+void engine::Engine::LoadScene(GameObject* scene) {
+    delete this->currentScene;
+
+    this->currentScene = scene;
 }
 
 void engine::Engine::Loop() {
@@ -74,12 +76,8 @@ void engine::Engine::Loop() {
 void engine::Engine::Close() {
     int i = 0;
 
-    for (; i < this->gameObjects.size(); ++i) {
-        delete this->gameObjects[i];
-        this->gameObjects[i] = NULL;
-    }
-
-    this->gameObjects.clear();
+    delete this->currentScene;
+    this->currentScene = NULL;
 
     SDL_DestroyRenderer(renderer);
     renderer = NULL;
@@ -96,11 +94,7 @@ void engine::Engine::Close() {
 void engine::Engine::Update(float elapsedTime) {
     int i;
 
-    for (i = 0; i < this->gameObjects.size(); ++i) {
-        if (this->gameObjects[i] != NULL) {
-            this->gameObjects[i]->Update(elapsedTime);
-        }
-    }
+    this->currentScene->Update(elapsedTime);
 }
 
 void engine::Engine::Draw() {
@@ -109,11 +103,7 @@ void engine::Engine::Draw() {
     SDL_SetRenderDrawColor(this->renderer, 0x00, 0x00, 0x00, 0xFF);
     SDL_RenderClear(this->renderer);
 
-    for (i = 0; i < this->gameObjects.size(); ++i) {
-        if (this->gameObjects[i] != NULL) {
-            this->gameObjects[i]->Draw(this->renderer);
-        }
-    }
+    this->currentScene->Draw(this->renderer);
 
     SDL_RenderPresent(this->renderer);
 }
@@ -127,13 +117,8 @@ void engine::Engine::HandleInput() {
             int x, y;
             SDL_GetMouseState(&x, &y);
 
-            for (i = 0; i < this->gameObjects.size(); ++i) {
-                if (this->gameObjects[i] != NULL) {
-                    this->gameObjects[i]->OnClick(x, y);
-                }
-            }
+            this->currentScene->OnClick(x, y);
         }
-
 
         if (e.type == SDL_QUIT) {
             this->looping = false;
