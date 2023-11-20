@@ -1,6 +1,7 @@
 #ifndef ORES_GAMEENGINE_RECTANGLE_H_
 #define ORES_GAMEENGINE_RECTANGLE_H_
 
+#include "Color.h"
 #include "GameObject.h"
 
 namespace ores {
@@ -13,12 +14,9 @@ namespace ores {
             \param y top left corner coordinate y
             \param width object width
             \param height object height
-            \param red rbga color red component
-            \param green rbga color green component
-            \param blue rbga color blue component
-            \param alpha rbga color alpha component
+            \param color object color
             */
-            Rectangle(float x, float y, float width, float height, int red, int green, int blue, int alpha);
+            Rectangle(float x, float y, float width, float height, Color color);
 
             //! Returns Rectangle left x coordinate
             /*!
@@ -59,16 +57,7 @@ namespace ores {
             float height = 0.0f;
 
             //! Object rgba color red component
-            int red = 0x00;
-
-            //! Object rgba color green component
-            int green = 0x00;
-
-            //! Object rgba color blue component
-            int blue = 0x00;
-
-            //! Object rgba color alpha component
-            int alpha = 0x00;
+            Color color = Color();
         };
     }
 }

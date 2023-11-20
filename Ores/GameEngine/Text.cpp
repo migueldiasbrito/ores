@@ -4,14 +4,14 @@
 namespace engine = ::ores::game_engine;
 
 engine::Text::Text(SDL_Renderer* renderer, FontCache& fontCache, std::string fontFilename, int fontSize,
-    std::string text, float x, float y, int red, int green, int blue, int alpha) {
+    std::string text, float x, float y, Color color) {
 
     SDL_Surface* surface;
-    SDL_Color color = { red, green, blue, alpha };
+    SDL_Color sdlColor = color.ToSdlColor();
     TTF_Font* font = fontCache.LoadFont(fontFilename, fontSize);
 
     if (font != NULL) {
-        surface = TTF_RenderText_Solid(font, text.c_str(), color);
+        surface = TTF_RenderText_Solid(font, text.c_str(), sdlColor);
         if (surface == NULL) {
             std::cout << "Unable to render text surface! SDL_ttf Error: " << TTF_GetError() << std::endl;
         }

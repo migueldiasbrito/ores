@@ -1,6 +1,7 @@
 #ifndef ORES_GAMEENGINE_TEXT_H_
 #define ORES_GAMEENGINE_TEXT_H_
 
+#include "Color.h"
 #include "FontCache.h"
 #include "Image.h"
 
@@ -17,13 +18,10 @@ namespace ores {
             \param text the text to be displayed
             \param x top left corner coordinate x
             \param y top left corner coordinate y
-            \param red rbga color red component
-            \param green rbga color green component
-            \param blue rbga color blue component
-            \param alpha rbga color alpha component
+            \param color text color
             */
             Text(SDL_Renderer* renderer, FontCache& fontCache, std::string fontFilename, int fontSize,
-                std::string text, float x, float y, int red, int green, int blue, int alpha);
+                std::string text, float x, float y, Color color);
 
             //! Centers the text in a rectangle
             /*!

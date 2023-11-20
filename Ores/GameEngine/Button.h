@@ -18,21 +18,15 @@ namespace ores {
             \param y top left corner coordinate y
             \param width object width
             \param height object height
-            \param bgRed button background rbga color red component
-            \param bgGreen button background rbga color green component
-            \param bgBlue button background rbga color blue component
-            \param bgAlpha button background rbga color alpha component
+            \param backgroundColor button background color
             \param fontFilename font filename to be loaded
             \param fontSize font size to be loaded
             \param text the text to be displayed in the button
-            \param textRed text rbga color red component
-            \param textGreen text rbga color green component
-            \param textBlue text rbga color blue component
-            \param textAlpha text rbga color alpha component
+            \param textColor text color
+            \param callback button on click callback
             */
             Button(SDL_Renderer* renderer, FontCache& fontCache, float x, float y, float width, float height,
-                int bgRed, int bgGreen, int bgBlue, int bgAlpha, std::string fontFilename, int fontSize,
-                std::string text, int textRed, int textGreen, int textBlue, int textAlpha,
+                Color backgroundColor, std::string fontFilename, int fontSize, std::string text, Color textColor,
                 std::function<void()> callback);
 
             void OnClick(int x, int y);

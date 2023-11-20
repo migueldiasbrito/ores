@@ -4,12 +4,12 @@
 namespace engine = ::ores::game_engine;
 
 engine::Button::Button(SDL_Renderer* renderer, FontCache& fontCache, float x, float y, float width, float height,
-    int bgRed, int bgGreen, int bgBlue, int bgAlpha, std::string fontFilename, int fontSize, std::string text,
-    int textRed, int textGreen, int textBlue, int textAlpha, std::function<void()> callback) : callback(callback) {
+    Color backgroundColor, std::string fontFilename, int fontSize, std::string text, Color textColor,
+    std::function<void()> callback) : callback(callback) {
 
-    this->gameObjects.push_back(new Rectangle(x, y, width, height, bgRed, bgGreen, bgBlue, bgAlpha));
+    this->gameObjects.push_back(new Rectangle(x, y, width, height, backgroundColor));
 
-    Text* buttonText = new Text(renderer, fontCache, fontFilename, fontSize, text, 0, 0, textRed, textGreen, textBlue, textAlpha);
+    Text* buttonText = new Text(renderer, fontCache, fontFilename, fontSize, text, 0, 0, textColor);
     buttonText->CenterAt(x, y, width, height);
     this->gameObjects.push_back(buttonText);
 
