@@ -1,16 +1,17 @@
 #include "GameContext.h"
 #include "../Data/Balancing.h"
 #include "../Data/DataReaders.h"
-#include "../Data/IGridDataReader.h"
 #include "../GameEngine/Button.h"
-#include "Config.h"
+#include "../Services/ServiceLocator.h"
+#include "BoxUiDisplay.h"
 #include "MetaContext.h"
 
 namespace presentation = ::ores::presentation;
 
-presentation::GameContext::GameContext(game_engine::Engine& engine, game_engine::FontCache& fontCache) {
-    data::IGridDataReader* gridDataReader = data::DataReaders::GetDataReader<data::IGridDataReader>();
-    data::Box* box;
+presentation::GameContext::GameContext(game_engine::Engine& engine, game_engine::FontCache& fontCache)
+    : gridDataReader(data::DataReaders::GetDataReader<data::IGridDataReader>())
+    , gridService(services::ServiceLocator::GetService<services::IGridService>()) {
+    data::IBox* box;
     int column = 0;
     int row = 0;
 
@@ -21,10 +22,9 @@ presentation::GameContext::GameContext(game_engine::Engine& engine, game_engine:
 
     for (; column < data::Balancing::COLUMN_COUNT; ++column) {
         for (row = 0; row < data::Balancing::ROW_COUNT; row++) {
-            box = gridDataReader->GetBoxAt(column, row);
+            box = this->gridDataReader->GetBoxAt(column, row);
             if (box != NULL) {
-                AddGameObject(new game_engine::Rectangle(100 + 100 * column, 1100 - 100 * row, 100, 100,
-                    Config::GetColor(box->GetColor())));
+                AddGameObject(new BoxUiDisplay(box, this->gridService));
             }
         }
     }

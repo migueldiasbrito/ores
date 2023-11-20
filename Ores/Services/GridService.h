@@ -15,9 +15,13 @@ namespace ores {
             GridService(data::GridModel* gridModel);
 
             void StartGame();
+            void TryPopBoxAt(int column, int row);
         private:
             //! GridModel in which this service acts
             data::GridModel* gridModel;
+
+            //! Last created box unique Id
+            int lastBoxId = -1;
         };
     }
 }

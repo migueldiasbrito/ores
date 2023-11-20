@@ -1,6 +1,7 @@
 #ifndef ORES_DATA_GRIDMODEL_H_
 #define ORES_DATA_GRIDMODEL_H_
 
+#include "Box.h"
 #include "IGridDataReader.h"
 
 namespace ores {
@@ -18,7 +19,7 @@ namespace ores {
             //! The grid boxes
             std::vector<std::vector<Box*>> boxes;
 
-            Box* GetBoxAt(int column, int row);
+            IBox* GetBoxAt(int column, int row);
         };
     }
 }

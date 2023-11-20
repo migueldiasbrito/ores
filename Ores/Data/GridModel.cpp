@@ -29,6 +29,6 @@ data::GridModel::~GridModel() {
     }
 }
 
-data::Box* data::GridModel::GetBoxAt(int column, int row) {
-    return this->boxes[column][row];
+data::IBox* data::GridModel::GetBoxAt(int column, int row) {
+    return (IBox*) this->boxes[column][row];
 }

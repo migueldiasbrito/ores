@@ -2,7 +2,7 @@
 #define ORES_DATA_IGRIDDATAREADER_H_
 
 #include "IDataReader.h"
-#include "Box.h"
+#include "IBox.h"
 #include <vector>
 
 namespace ores {
@@ -15,7 +15,7 @@ namespace ores {
             \param row grid row
             \return the Box at the column and row
             */
-            virtual Box* GetBoxAt(int column, int row) = 0;;
+            virtual IBox* GetBoxAt(int column, int row) = 0;;
         };
     }
 }

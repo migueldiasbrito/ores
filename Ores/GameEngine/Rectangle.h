@@ -18,31 +18,17 @@ namespace ores {
             */
             Rectangle(float x, float y, float width, float height, Color color);
 
-            //! Returns Rectangle left x coordinate
+            //! Checks if point is inside rectangle
             /*!
-            \return Rectangle lefy x coordinate
+            \param x point x coordinate
+            \param y point y coordinate
             */
-            inline float GetLeft() { return this->x; }
-
-            //! Returns Rectangle top y coordinate
-            /*!
-            \return Rectangle top y coordinate
-            */
-            inline float GetTop() { return this->y; }
-
-            //! Returns Rectangle right x coordinate
-            /*!
-            \return Rectangle right x coordinate
-            */
-            inline float GetRight() { return this->x + this->width; }
-
-            //! Returns Rectangle bottom y coordinate
-            /*!
-            \return Rectangle bottom y coordinate
-            */
-            inline float GetBottom() { return this->y + this->height; }
+            bool Intersects(float x, float y) {
+                return x >= this->x && x <= this->x + this->width && y >= this->y && y <= this->y + this->height;
+            }
 
             void Draw(SDL_Renderer* renderer);
+
         private:
             //! Top left corner x
             float x = 0.0f;
