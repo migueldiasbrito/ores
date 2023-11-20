@@ -1,36 +1,34 @@
 #include "GridModel.h"
+#include "Balancing.h"
 
 namespace data = ::ores::data;
 
 data::GridModel::GridModel() {
-    // change to [column][row]
-    int i = 0;
-    int j = 0;
-    std::vector<Box*>* row;
+    int column = 0;
+    int row = 0;
+    std::vector<Box*>* newRow;
 
-    // Add these 10 to balancing
-    for (; i < 10; i++) {
-        row = new std::vector<Box*>();
-        for (j = 0; j < 10; j++) {
-            row->push_back(NULL);
+    for (; column < data::Balancing::COLUMN_COUNT; ++column) {
+        newRow = new std::vector<Box*>();
+        for (row = 0; row < data::Balancing::ROW_COUNT; ++row) {
+            newRow->push_back(NULL);
         }
-        this->boxes.push_back(*row);
+        this->boxes.push_back(*newRow);
     }
 }
 
 data::GridModel::~GridModel() {
-    // change to [column][row]
-    int i = 0;
-    int j = 0;
+    int column = 0;
+    int row = 0;
 
-    for (; i < this->boxes.size(); i++) {
-        for (j = 0; j < this->boxes[i].size(); j++) {
-            delete this->boxes[i][j];
-            this->boxes[i][j] = NULL;
+    for (; column < this->boxes.size(); ++column) {
+        for (row = 0; row < this->boxes[column].size(); ++row) {
+            delete this->boxes[column][row];
+            this->boxes[column][row] = NULL;
         }
     }
 }
 
-std::vector<std::vector<data::Box*>> data::GridModel::GetBoxes() {
-    return this->boxes;
+data::Box* data::GridModel::GetBoxAt(int column, int row) {
+    return this->boxes[column][row];
 }

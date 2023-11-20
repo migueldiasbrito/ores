@@ -9,8 +9,13 @@ namespace ores {
     namespace data {
         class IGridDataReader : IDataReader {
         public:
-            // change to return a pointer
-            virtual std::vector<std::vector<Box*>> GetBoxes() = 0;
+            //! Gets the Box at the specified column and row
+            /*!
+            \param column grid column
+            \param row grid row
+            \return the Box at the column and row
+            */
+            virtual Box* GetBoxAt(int column, int row) = 0;;
         };
     }
 }

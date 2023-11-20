@@ -9,10 +9,16 @@ namespace ores {
             public IGridDataReader
         {
         public:
+            //! Contructor
             GridModel();
+
+            //! Deletes all boxes
             ~GridModel();
-            std::vector<std::vector<Box*>> GetBoxes();
+
+            //! The grid boxes
             std::vector<std::vector<Box*>> boxes;
+
+            Box* GetBoxAt(int column, int row);
         };
     }
 }

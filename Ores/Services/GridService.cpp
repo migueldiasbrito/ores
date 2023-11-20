@@ -1,4 +1,5 @@
 #include "GridService.h"
+#include "../Data/Balancing.h"
 
 namespace services = ::ores::services;
 
@@ -7,19 +8,17 @@ services::GridService::GridService(data::GridModel* gridModel) {
 }
 
 void services::GridService::StartGame() {
-    // change to [column][row]
-    int i = 0;
-    int j = 0;
+    int column = 0;
+    int row = 0;
 
-    for (; i < this->gridModel->boxes.size(); i++) {
-        for (j = 0; j < this->gridModel->boxes.size(); j++) {
-            delete this->gridModel->boxes[i][j];
-            if (j < 5) {
-                this->gridModel->boxes[i][j] = NULL;
+    for (; column < this->gridModel->boxes.size(); column++) {
+        for (row = 0; row < this->gridModel->boxes.size(); row++) {
+            delete this->gridModel->boxes[column][row];
+            if (column < 5) {
+                this->gridModel->boxes[column][row] = NULL;
             }
             else {
-                // Add this 5 to balancing
-                this->gridModel->boxes[i][j] = new data::Box(rand() % 5);
+                this->gridModel->boxes[column][row] = new data::Box(rand() % data::Balancing::COLOR_COUNT);
             }
         }
     }

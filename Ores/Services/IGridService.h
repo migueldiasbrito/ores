@@ -7,6 +7,7 @@ namespace ores {
     namespace services {
         class IGridService : IService {
         public:
+            //! Creates a new Grid of random colored Box
             virtual void StartGame() = 0;
         };
     }

@@ -1,8 +1,9 @@
 #include "GameContext.h"
-#include "MetaContext.h"
-#include "../GameEngine/Button.h"
-#include "../Data/IGridDataReader.h"
+#include "../Data/Balancing.h"
 #include "../Data/DataReaders.h"
+#include "../Data/IGridDataReader.h"
+#include "../GameEngine/Button.h"
+#include "MetaContext.h"
 
 namespace presentation = ::ores::presentation;
 
@@ -46,22 +47,20 @@ void GetColors(int colorId, int& red, int& green, int& blue) {
 
 presentation::GameContext::GameContext(game_engine::Engine& engine, game_engine::FontCache& fontCache) {
     data::IGridDataReader* gridDataReader = data::DataReaders::GetDataReader<data::IGridDataReader>();
-    std::vector<std::vector<data::Box*>> grid = gridDataReader->GetBoxes();
-    // change to [column][row]
-    int i = 0;
-    int j = 0;
+    data::Box* box;
+    int column = 0;
+    int row = 0;
     int red, green, blue;
 
     AddGameObject(new game_engine::Button(engine.GetRenderer(), fontCache, 300, 0, 400, 100, 0xFF, 0xFF, 0xFF, 0xFF,
         "../../Resources/Fonts/consola.ttf", 28, "MAIN MENU", 0x00, 0x00, 0x00, 0xFF, [&engine, &fontCache] { engine.LoadScene(new MetaContext(engine, fontCache)); }));
 
-    // will need a remove GameObject
-    // box will need some kind of id
-    for (; i < grid.size(); ++i) {
-        for (j = 0; j < grid[i].size(); j++) {
-            if (grid[i][j] != NULL) {
-                GetColors(grid[i][j]->GetColor(), red, green, blue);
-                AddGameObject(new game_engine::Rectangle(100 + 100 * j, 1100 - 100 * i, 100, 100, red, green, blue, 0xFF));
+    for (; column < data::Balancing::COLUMN_COUNT; ++column) {
+        for (row = 0; row < data::Balancing::ROW_COUNT; row++) {
+            box = gridDataReader->GetBoxAt(column, row);
+            if (box != NULL) {
+                GetColors(box->GetColor(), red, green, blue);
+                AddGameObject(new game_engine::Rectangle(100 + 100 * column, 1100 - 100 * row, 100, 100, red, green, blue, 0xFF));
             }
         }
     }
