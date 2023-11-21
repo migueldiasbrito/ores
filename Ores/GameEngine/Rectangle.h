@@ -29,7 +29,7 @@ namespace ores {
 
             void Draw(SDL_Renderer* renderer);
 
-        private:
+        protected:
             //! Top left corner x
             float x = 0.0f;
 

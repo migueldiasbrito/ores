@@ -1,6 +1,8 @@
 #ifndef ORES_DATA_IBOX_H_
 #define ORES_DATA_IBOX_H_
 
+#include "../Observers/IBoxPositionUpdatedObserver.h"
+
 namespace ores {
     namespace data {
         class IBox {
@@ -28,6 +30,18 @@ namespace ores {
             \return the box current row
             */
             virtual int GetRow() = 0;
+
+            //! Adds an observer for when box position is updated
+            /*!
+            \param observer the observer to attach
+            */
+            virtual void AttachBoxPositionUpdatedObserver(observers::IBoxPositionUpdatedObserver* observer) = 0;
+
+            //! Removes an observer for when box position is updated
+            /*!
+            \param observer the observer to dettach
+            */
+            virtual void DettachBoxPositionUpdatedObserver(observers::IBoxPositionUpdatedObserver* observer) = 0;
         };
     }
 }

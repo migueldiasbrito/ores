@@ -27,6 +27,9 @@ namespace ores {
 
             //! Boxes popped observers
             std::vector<observers::IBoxesPoppedObserver*> boxesPoppedObservers;
+
+            //! Updates boxes position in the grid after a deletion
+            void UpdateBoxesPosition();
         };
     }
 }

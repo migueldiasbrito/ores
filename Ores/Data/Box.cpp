@@ -19,3 +19,27 @@ int data::Box::GetColumn() {
 int data::Box::GetRow() {
     return this->row;
 }
+
+void data::Box::UpdateGridPosition(int column, int row) {
+    int i = 0;
+
+    this->column = column;
+    this->row = row;
+
+    for (; i < this->boxPositionUpdatedObservers.size(); ++i) {
+        this->boxPositionUpdatedObservers[i]->OnBoxPositionUpdated(this->column, this->row);
+    }
+}
+
+void data::Box::AttachBoxPositionUpdatedObserver(observers::IBoxPositionUpdatedObserver* observer) {
+    this->boxPositionUpdatedObservers.push_back(observer);
+}
+
+void data::Box::DettachBoxPositionUpdatedObserver(observers::IBoxPositionUpdatedObserver* observer) {
+    std::vector<observers::IBoxPositionUpdatedObserver*>::iterator it
+        = std::find(this->boxPositionUpdatedObservers.begin(), this->boxPositionUpdatedObservers.end(), observer);
+
+    if (it != this->boxPositionUpdatedObservers.end()) {
+        this->boxPositionUpdatedObservers.erase(it);
+    }
+}

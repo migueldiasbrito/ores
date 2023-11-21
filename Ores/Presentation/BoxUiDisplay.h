@@ -3,11 +3,12 @@
 
 #include "../Data/IBox.h"
 #include "../GameEngine/Rectangle.h"
+#include "../Observers/IBoxPositionUpdatedObserver.h"
 #include "../Services/IGridService.h"
 
 namespace ores {
     namespace presentation {
-        class BoxUiDisplay : public game_engine::Rectangle {
+        class BoxUiDisplay : public game_engine::Rectangle, observers::IBoxPositionUpdatedObserver {
         public:
             //! Constructor
             /*!
@@ -16,6 +17,7 @@ namespace ores {
             BoxUiDisplay(data::IBox* box, services::IGridService* gridService);
 
             void OnClick(int x, int y);
+            void OnBoxPositionUpdated(int column, int row);
         private:
             //! Box represented
             data::IBox* box;

@@ -72,6 +72,8 @@ void services::GridService::TryPopBoxAt(int column, int row) {
     for (i = 0; i < this->boxesPoppedObservers.size(); ++i) {
         this->boxesPoppedObservers[i]->OnBoxesPopped(poppedIds);
     }
+
+    this->UpdateBoxesPosition();
 }
 
 void services::GridService::AttachBoxesPoppedObserver(observers::IBoxesPoppedObserver* observer) {
@@ -84,5 +86,37 @@ void services::GridService::DettachBoxesPoppedObserver(observers::IBoxesPoppedOb
 
     if (it != this->boxesPoppedObservers.end()) {
         this->boxesPoppedObservers.erase(it);
+    }
+}
+
+void services::GridService::UpdateBoxesPosition() {
+    int column = data::Balancing::COLUMN_COUNT - 1;
+    int row = 0;
+    int columnsRemoved = 0;
+    int rowsRemoved = 0;
+    bool isColumnEmpty;
+
+    for (; column >= 0; --column) {
+        isColumnEmpty = true;
+        rowsRemoved = 0;
+        
+        for (row = 0; row < data::Balancing::ROW_COUNT; ++row) {
+            if (this->gridModel->boxes[column][row] == NULL) {
+                ++rowsRemoved;
+                continue;
+            }
+
+            isColumnEmpty = false;
+
+            if (columnsRemoved == 0 && rowsRemoved == 0) continue;
+
+            this->gridModel->boxes[column][row]->UpdateGridPosition(column + columnsRemoved, row - rowsRemoved);
+            this->gridModel->boxes[column + columnsRemoved][row - rowsRemoved] = this->gridModel->boxes[column][row];
+            this->gridModel->boxes[column][row] = NULL;
+        }
+
+        if (isColumnEmpty) {
+            ++columnsRemoved;
+        }
     }
 }
