@@ -1,5 +1,7 @@
 #include "Engine.h"
+#include <chrono>
 #include <iostream>
+#include <thread>
 #include <SDL_ttf.h>
 
 namespace engine = ::ores::game_engine;
@@ -61,15 +63,29 @@ void engine::Engine::LoadScene(GameObject* scene) {
 }
 
 void engine::Engine::Loop() {
+    std::chrono::system_clock::time_point currentFrameTimestamp;
+    std::chrono::system_clock::time_point lastFrameTimestamp = std::chrono::system_clock::now();
+    std::chrono::duration<float> secondsBetweenFrames{ 1.0f / 60.0f };
+    std::chrono::duration<float> waitTime;
+    float elapsedTime;
+
     this->looping = true;
 
     while (this->looping) {
         this->HandleInput();
-        // todo get elapsed time
-        this->Update(1.0f / 60.0f);
+        
+        currentFrameTimestamp = std::chrono::system_clock::now();
+        elapsedTime = std::chrono::duration_cast<std::chrono::duration<float>>(currentFrameTimestamp - lastFrameTimestamp).count();
+
+        this->Update(elapsedTime);
         this->Draw();
 
-        // todo wait until next frame
+        lastFrameTimestamp = currentFrameTimestamp;
+        waitTime = secondsBetweenFrames - (std::chrono::system_clock::now() - lastFrameTimestamp);
+
+        if (waitTime.count() > 0) {
+            std::this_thread::sleep_for(waitTime);
+        }
     }
 }
 
