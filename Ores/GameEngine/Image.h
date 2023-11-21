@@ -8,7 +8,7 @@ namespace ores {
         class Image : public GameObject {
         public:
             //! Deallocates the SDL_Texture
-            ~Image();
+            virtual ~Image();
 
             void Draw(SDL_Renderer* renderer);
         protected:

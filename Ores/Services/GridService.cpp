@@ -1,7 +1,5 @@
 #include "GridService.h"
 #include "../Data/Balancing.h"
-#include <map>
-#include <queue>
 #include <functional>
 
 namespace services = ::ores::services;
@@ -29,21 +27,22 @@ void services::GridService::StartGame() {
 }
 
 void services::GridService::TryPopBoxAt(int column, int row) {
-    std::vector<std::pair<int, int>> visited;
-    std::vector<std::pair<int, int>> pop;
+    std::vector<std::pair<int, int>> boxesVisited;
+    std::vector<std::pair<int, int>> boxesToPop;
+    std::vector<int> poppedIds;
     int i = 0;
     int color;
-    auto testBox{ [this, &color, &pop, &visited](int column, int row) {
+    auto testBox{ [this, &color, &boxesToPop, &boxesVisited](int column, int row) {
             if (column < 0 || column >= data::Balancing::COLUMN_COUNT || row < 0 || row >= data::Balancing::ROW_COUNT)
                 return;
 
-            if (std::find(visited.begin(), visited.end(), std::pair<int, int>(column, row)) != visited.end()) return;
+            if (std::find(boxesVisited.begin(), boxesVisited.end(), std::pair<int, int>(column, row)) != boxesVisited.end()) return;
 
-            visited.push_back(std::pair<int, int>(column, row));
+            boxesVisited.push_back(std::pair<int, int>(column, row));
 
             if (this->gridModel->boxes[column][row] != NULL
                 && this->gridModel->boxes[column][row]->GetColor() == color) {
-                pop.push_back(std::pair<int, int>(column, row));
+                boxesToPop.push_back(std::pair<int, int>(column, row));
             }
         }
     };
@@ -52,20 +51,38 @@ void services::GridService::TryPopBoxAt(int column, int row) {
     if (this->gridModel->boxes[column][row] == NULL) return;
 
     color = this->gridModel->boxes[column][row]->GetColor();
-    pop.push_back(std::pair<int, int>(column, row));
-    visited.push_back(pop[0]);
+    boxesToPop.push_back(std::pair<int, int>(column, row));
+    boxesVisited.push_back(boxesToPop[0]);
 
-    for (; i < pop.size(); ++i) {
-        testBox(pop[i].first - 1, pop[i].second);
-        testBox(pop[i].first + 1, pop[i].second);
-        testBox(pop[i].first, pop[i].second - 1);
-        testBox(pop[i].first, pop[i].second + 1);
+    for (; i < boxesToPop.size(); ++i) {
+        testBox(boxesToPop[i].first - 1, boxesToPop[i].second);
+        testBox(boxesToPop[i].first + 1, boxesToPop[i].second);
+        testBox(boxesToPop[i].first, boxesToPop[i].second - 1);
+        testBox(boxesToPop[i].first, boxesToPop[i].second + 1);
     }
 
-    if (pop.size() <= 1) return;
+    if (boxesToPop.size() <= 1) return;
 
-    for (i = 0; i < pop.size(); ++i) {
-        delete this->gridModel->boxes[pop[i].first][pop[i].second];
-        this->gridModel->boxes[pop[i].first][pop[i].second] = NULL;
+    for (i = 0; i < boxesToPop.size(); ++i) {
+        poppedIds.push_back(this->gridModel->boxes[boxesToPop[i].first][boxesToPop[i].second]->GetId());
+        delete this->gridModel->boxes[boxesToPop[i].first][boxesToPop[i].second];
+        this->gridModel->boxes[boxesToPop[i].first][boxesToPop[i].second] = NULL;
+    }
+
+    for (i = 0; i < this->boxesPoppedObservers.size(); ++i) {
+        this->boxesPoppedObservers[i]->OnBoxesPopped(poppedIds);
+    }
+}
+
+void services::GridService::AttachBoxesPoppedObserver(observers::IBoxesPoppedObserver* observer) {
+    this->boxesPoppedObservers.push_back(observer);
+}
+
+void services::GridService::DettachBoxesPoppedObserver(observers::IBoxesPoppedObserver* observer) {
+    std::vector<observers::IBoxesPoppedObserver*>::iterator it
+        = std::find(this->boxesPoppedObservers.begin(), this->boxesPoppedObservers.end(), observer);
+
+    if (it != this->boxesPoppedObservers.end()) {
+        this->boxesPoppedObservers.erase(it);
     }
 }

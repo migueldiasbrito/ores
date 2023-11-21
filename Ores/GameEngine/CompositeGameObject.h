@@ -12,7 +12,7 @@ namespace ores {
             CompositeGameObject();
 
             //! Deletes all GameObjects from composite
-            ~CompositeGameObject();
+            virtual ~CompositeGameObject();
 
             //! Adds a GameObject to the composite
             /*!

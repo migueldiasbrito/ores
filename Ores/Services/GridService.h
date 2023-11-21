@@ -16,12 +16,17 @@ namespace ores {
 
             void StartGame();
             void TryPopBoxAt(int column, int row);
+            void AttachBoxesPoppedObserver(observers::IBoxesPoppedObserver* observer);
+            void DettachBoxesPoppedObserver(observers::IBoxesPoppedObserver* observer);
         private:
             //! GridModel in which this service acts
             data::GridModel* gridModel;
 
             //! Last created box unique Id
             int lastBoxId = -1;
+
+            //! Boxes popped observers
+            std::vector<observers::IBoxesPoppedObserver*> boxesPoppedObservers;
         };
     }
 }

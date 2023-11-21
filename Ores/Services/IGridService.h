@@ -2,6 +2,7 @@
 #define ORES_SERVICE_IGRIDSERVICE_H_
 
 #include "IService.h"
+#include "../Observers/IBoxesPoppedObserver.h"
 
 namespace ores {
     namespace services {
@@ -16,6 +17,18 @@ namespace ores {
             \param row grid row position of the box
             */
             virtual void TryPopBoxAt(int column, int row) = 0;
+
+            //! Adds an observer for when box is popped
+            /*!
+            \param observer the observer to attach
+            */
+            virtual void AttachBoxesPoppedObserver(observers::IBoxesPoppedObserver* observer) = 0;
+
+            //! Removes an observer for when box is popped
+            /*!
+            \param observer the observer to dettach
+            */
+            virtual void DettachBoxesPoppedObserver(observers::IBoxesPoppedObserver* observer) = 0;
         };
     }
 }
