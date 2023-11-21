@@ -15,3 +15,11 @@ void engine::Rectangle::Draw(SDL_Renderer* renderer) {
 
     SDL_RenderFillRect(renderer, &rect);
 }
+
+void engine::Rectangle::SetWidth(float width) {
+    this->width = width;
+}
+
+void engine::Rectangle::SetHeight(float height) {
+    this->height = height;
+}

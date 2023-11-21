@@ -16,8 +16,11 @@ namespace ores {
 
             void StartGame();
             void TryPopBoxAt(int column, int row);
+            void InsertNewColumn();
             void AttachBoxesPoppedObserver(observers::IBoxesPoppedObserver* observer);
             void DettachBoxesPoppedObserver(observers::IBoxesPoppedObserver* observer);
+            void AttachNewColumnAddedObserver(observers::INewColumnAddedObserver* observer);
+            void DettachNewColumnAddedObserver(observers::INewColumnAddedObserver* observer);
         private:
             //! GridModel in which this service acts
             data::GridModel* gridModel;
@@ -27,6 +30,8 @@ namespace ores {
 
             //! Boxes popped observers
             std::vector<observers::IBoxesPoppedObserver*> boxesPoppedObservers;
+            //! New column added observers
+            std::vector<observers::INewColumnAddedObserver*> newColumnAddedObservers;
 
             //! Updates boxes position in the grid after a deletion
             void UpdateBoxesPosition();

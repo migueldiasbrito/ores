@@ -4,13 +4,15 @@
 #include "../Data/IGridDataReader.h"
 #include "../GameEngine/CompositeGameObject.h"
 #include "../Observers/IBoxesPoppedObserver.h"
+#include "../Observers/INewColumnAddedObserver.h"
 #include "../Services/IGridService.h"
 #include "BoxUiDisplay.h"
 #include <map>
 
 namespace ores {
     namespace presentation {
-        class GridUiDisplay : public game_engine::CompositeGameObject, observers::IBoxesPoppedObserver {
+        class GridUiDisplay : public game_engine::CompositeGameObject, observers::IBoxesPoppedObserver,
+            observers::INewColumnAddedObserver {
         public:
             //! Constructor
             /*!
@@ -23,6 +25,7 @@ namespace ores {
             virtual ~GridUiDisplay();
 
             void OnBoxesPopped(std::vector<int> boxesPoppedIds);
+            void OnNewColumnAdded();
         private:
             //! All Box Display by id
             std::map<int, BoxUiDisplay*> boxesById;

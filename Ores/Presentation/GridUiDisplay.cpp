@@ -22,10 +22,12 @@ presentation::GridUiDisplay::GridUiDisplay(data::IGridDataReader* gridDataReader
     }
 
     this->gridService->AttachBoxesPoppedObserver(this);
+    this->gridService->AttachNewColumnAddedObserver(this);
 }
 
 presentation::GridUiDisplay::~GridUiDisplay() {
     this->gridService->DettachBoxesPoppedObserver(this);
+    this->gridService->DettachNewColumnAddedObserver(this);
 }
 
 void presentation::GridUiDisplay::OnBoxesPopped(std::vector<int> boxesPoppedIds) {
@@ -46,5 +48,21 @@ void presentation::GridUiDisplay::OnBoxesPopped(std::vector<int> boxesPoppedIds)
 
         delete boxMapIt->second;
         this->boxesById.erase(boxMapIt);
+    }
+}
+
+void presentation::GridUiDisplay::OnNewColumnAdded() {
+    data::IBox* box;
+    BoxUiDisplay* boxDisplay;
+    int column = data::Balancing::COLUMN_COUNT - 1;
+    int row = 0;
+
+    for (; row < data::Balancing::ROW_COUNT; row++) {
+        box = this->gridDataReader->GetBoxAt(column, row);
+        if (box != NULL) {
+            boxDisplay = new BoxUiDisplay(box, this->gridService);
+            AddGameObject(boxDisplay);
+            this->boxesById.insert(std::pair<int, BoxUiDisplay*>(box->GetId(), boxDisplay));
+        }
     }
 }

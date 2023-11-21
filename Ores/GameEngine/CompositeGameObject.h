@@ -21,7 +21,7 @@ namespace ores {
             void AddGameObject(GameObject* gameObject);
 
             void Draw(SDL_Renderer* renderer);
-            void Update(float elapsedTime);
+            virtual void Update(float elapsedTime);
             void OnClick(int x, int y);
         protected:
             //! Array with Game Objects that form the Composite.

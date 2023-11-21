@@ -13,6 +13,9 @@ namespace ores {
 
             //! Total number of colors
             static const int COLOR_COUNT = 5;
+
+            //! Time before new column appears
+            static const int NEW_COLUMN_TIME = 5;
         };
     }
 };

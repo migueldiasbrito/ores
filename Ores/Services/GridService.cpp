@@ -76,6 +76,36 @@ void services::GridService::TryPopBoxAt(int column, int row) {
     this->UpdateBoxesPosition();
 }
 
+void services::GridService::InsertNewColumn() {
+    int column = 1;
+    int row;
+    int i = 0;
+    
+    if (gridModel->boxes[0][0] != NULL) {
+        // GAME OVER
+        return;
+    }
+
+    for (; column < gridModel->boxes.size(); ++column) {
+
+        for (row = 0; row < gridModel->boxes[column].size() && gridModel->boxes[column][row] != NULL; ++row) {
+            gridModel->boxes[column][row]->UpdateGridPosition(column - 1, row);
+            gridModel->boxes[column - 1][row] = gridModel->boxes[column][row];
+            gridModel->boxes[column][row] = NULL;
+        }
+    }
+
+    for (row = 0; row < gridModel->boxes[column - 1].size(); ++row) {
+        gridModel->boxes[column - 1][row] = new data::Box(++this->lastBoxId, rand() % data::Balancing::COLOR_COUNT,
+            column - 1, row);
+    }
+
+    for (; i < this->newColumnAddedObservers.size(); ++i) {
+        this->newColumnAddedObservers[i]->OnNewColumnAdded();
+    }
+}
+
+
 void services::GridService::AttachBoxesPoppedObserver(observers::IBoxesPoppedObserver* observer) {
     this->boxesPoppedObservers.push_back(observer);
 }
@@ -86,6 +116,19 @@ void services::GridService::DettachBoxesPoppedObserver(observers::IBoxesPoppedOb
 
     if (it != this->boxesPoppedObservers.end()) {
         this->boxesPoppedObservers.erase(it);
+    }
+}
+
+void services::GridService::AttachNewColumnAddedObserver(observers::INewColumnAddedObserver* observer) {
+    this->newColumnAddedObservers.push_back(observer);
+}
+
+void services::GridService::DettachNewColumnAddedObserver(observers::INewColumnAddedObserver* observer) {
+    std::vector<observers::INewColumnAddedObserver*>::iterator it
+        = std::find(this->newColumnAddedObservers.begin(), this->newColumnAddedObservers.end(), observer);
+
+    if (it != this->newColumnAddedObservers.end()) {
+        this->newColumnAddedObservers.erase(it);
     }
 }
 

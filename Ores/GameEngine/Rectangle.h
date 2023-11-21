@@ -27,6 +27,18 @@ namespace ores {
                 return x >= this->x && x <= this->x + this->width && y >= this->y && y <= this->y + this->height;
             }
 
+            //! Updates rectangle width
+            /*!
+            \param width new width
+            */
+            void SetWidth(float width);
+
+            //! Updates rectangle height
+            /*!
+            \param width new height
+            */
+            void SetHeight(float height);
+
             void Draw(SDL_Renderer* renderer);
 
         protected:

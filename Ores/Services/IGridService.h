@@ -3,6 +3,7 @@
 
 #include "IService.h"
 #include "../Observers/IBoxesPoppedObserver.h"
+#include "../Observers/INewColumnAddedObserver.h"
 
 namespace ores {
     namespace services {
@@ -18,6 +19,9 @@ namespace ores {
             */
             virtual void TryPopBoxAt(int column, int row) = 0;
 
+            //! Adds a new column to the right pushing existing ones to the left
+            virtual void InsertNewColumn() = 0;
+
             //! Adds an observer for when box is popped
             /*!
             \param observer the observer to attach
@@ -29,6 +33,18 @@ namespace ores {
             \param observer the observer to dettach
             */
             virtual void DettachBoxesPoppedObserver(observers::IBoxesPoppedObserver* observer) = 0;
+
+            //! Adds an observer for when a new column is added
+            /*!
+            \param observer the observer to attach
+            */
+            virtual void AttachNewColumnAddedObserver(observers::INewColumnAddedObserver* observer) = 0;
+
+            //! Removes an observer for when a new column is added
+            /*!
+            \param observer the observer to dettach
+            */
+            virtual void DettachNewColumnAddedObserver(observers::INewColumnAddedObserver* observer) = 0;
         };
     }
 }
