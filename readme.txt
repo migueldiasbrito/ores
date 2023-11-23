@@ -22,19 +22,24 @@ Further Development
 
 Obviously it's very hard to make a complete ready to ship game in two weeks. Here are my considerations from what could have been done if I had more time (or budget)
 
-1. Threads
-
-I didn't dwell into threads as it's something I'm not confortable enough to tackle in a two week project. However, it would be a good practice to have a draw thread and add a timer functionality independent of the Game Engine module. Itches me a bit that a Game Object controls when a new column appears.
-
-2. Images and Sounds
+1. Images and Sounds
 
 I'm not completely unhappy with the very retro style of the game, but images and sound could help a lot to add flair to the game. The main reason why I prefer other features were because Image and Sound loading would be implemented in the same way I implemented the load of Fonts, so it woulndn't add much technically speaking.
 
-3. Balancing
+2. Balancing
 
 The final version of the game turned very hard to be playing after half a minute and there's not real motivation for replaying it. That means that the game is not properly balanced or some interesting features are missing, like the levels and score presented in the example video.
+Also, Balancing should be stored and read in a file instead of explicitly in code.
 
-4. Code improvements
+3. Removal of Magic variables
+
+Through the presentantion layer, there are loads of magic variables flying around (coordinates, sizes, font names or colors). Since it's on the presentation layer, it doesn't worry me a lot, but it would still be nice the clear those.
+
+4. Threads
+
+I didn't dwell into threads as it's something I'm not confortable enough to tackle in a two week project. However, it would be a good practice to have a draw thread and add a timer functionality independent of the Game Engine module. Itches me a bit that a Game Object controls when a new column appears.
+
+5. Other code improvements
 
 Although I'm confortable programming in C++, I'm used to program in C# and I'm not aware of all the specifics of the C++ language and due to time constraints I didn't explore too much. Examples of things that I know could improve the code are the usage of smart pointers and find a way to update the presentation module without the observer implementation. My initial idea was to have a notification service, but I dropped once I noticed that template methods can't be virtual.
 

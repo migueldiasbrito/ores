@@ -29,6 +29,12 @@ namespace ores {
 
             //! the grid service
             services::IGridService* gridService;
+
+            //! Engine
+            game_engine::Engine* engine;
+
+            //! FontCache
+            game_engine::FontCache* fontCache;
         };
     }
 }
