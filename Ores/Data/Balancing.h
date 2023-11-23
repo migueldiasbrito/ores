@@ -15,7 +15,7 @@ namespace ores {
             static const int COLOR_COUNT = 5;
 
             //! Time before new column appears
-            static const int NEW_COLUMN_TIME = 5;
+            static const int NEW_COLUMN_TIME = 7;
         };
     }
 };

@@ -1,5 +1,6 @@
 #include "GridUiDisplay.h"
 #include "../Data/Balancing.h"
+#include "BoxDisappearAnimation.h"
 
 namespace presentation = ::ores::presentation;
 
@@ -58,6 +59,7 @@ void presentation::GridUiDisplay::OnBoxesPopped(std::vector<int> boxesPoppedIds)
             this->gameObjects.erase(goIt);
         }
 
+        this->AddBoxDisappearAnimation(boxMapIt->second);
         delete boxMapIt->second;
         this->boxesById.erase(boxMapIt);
     }
@@ -91,8 +93,19 @@ void presentation::GridUiDisplay::OnGameOver() {
             this->gameObjects.erase(goIt);
         }
 
+        this->AddBoxDisappearAnimation(boxMapIt->second);
         delete boxMapIt->second;
     }
 
     this->boxesById.clear();
+}
+
+void presentation::GridUiDisplay::AddBoxDisappearAnimation(BoxUiDisplay* boxDisplay) {
+    // Hacky way to keep the disappearing box on top of the others
+    game_engine::Rectangle* rectangle = new game_engine::Rectangle(boxDisplay->GetX(), boxDisplay->GetY(),
+        boxDisplay->GetWidth(), boxDisplay->GetHeight(), boxDisplay->GetColor());
+    rectangle->SetAnimation(new BoxDisappearAnimation(rectangle, 0.5f, [this, rectangle] {
+        this->RemoveGameObjectAfterUpdate(rectangle);
+        }));
+    AddGameObject(rectangle);
 }

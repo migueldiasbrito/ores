@@ -52,6 +52,12 @@ namespace ores {
 
             //! Y offset for new boxes when new column appears
             float newBoxYOffset = 0.0f;
+
+            //! Creates a Rectangle with BoxDisappearingAnimation
+            /*!
+            \param boxDisplay the box to be deleted
+            */
+            void AddBoxDisappearAnimation(BoxUiDisplay* boxDisplay);
         };
         
     }

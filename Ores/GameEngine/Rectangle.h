@@ -41,15 +41,21 @@ namespace ores {
 
             //! Returns rectangle width
             /*!
-            \retunr rectangle width
+            \return rectangle width
             */
             inline float GetWidth() { return this->width; }
 
             //! Returns rectangle height
             /*!
-            \param rectangle height
+            \return rectangle height
             */
             inline float GetHeight() { return this->height; }
+
+            //! Returns rectangle color
+            /*!
+            \return rectangle color
+            */
+            inline Color GetColor() { return this->color; }
 
             //! Updates rectangle x coordinate
             /*!
@@ -74,6 +80,12 @@ namespace ores {
             \param height new height
             */
             inline void SetHeight(float height) { this->height = height; }
+
+            //! Updates the rectangle color alpha value
+            /*! 
+            \param alpha the updated alpha value
+            */
+            inline void SetAlpha(int alpha) { this->color.alpha = alpha; }
 
             void Draw(SDL_Renderer* renderer);
 
