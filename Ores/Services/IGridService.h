@@ -4,6 +4,7 @@
 #include "IService.h"
 #include "../Observers/IBoxesPoppedObserver.h"
 #include "../Observers/INewColumnAddedObserver.h"
+#include "../Observers/IGameOverObserver.h"
 
 namespace ores {
     namespace services {
@@ -45,6 +46,18 @@ namespace ores {
             \param observer the observer to dettach
             */
             virtual void DettachNewColumnAddedObserver(observers::INewColumnAddedObserver* observer) = 0;
+
+            //! Adds an observer for when the game is over
+            /*!
+            \param observer the observer to attach
+            */
+            virtual void AttachGameOverObserver(observers::IGameOverObserver* observer) = 0;
+
+            //! Removes an observer for when the game is over
+            /*!
+            \param observer the observer to dettach
+            */
+            virtual void DettachGameOverObserver(observers::IGameOverObserver* observer) = 0;
         };
     }
 }

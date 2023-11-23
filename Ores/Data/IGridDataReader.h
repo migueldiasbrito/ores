@@ -15,7 +15,7 @@ namespace ores {
             \param row grid row
             \return the Box at the column and row
             */
-            virtual IBox* GetBoxAt(int column, int row) = 0;;
+            virtual IBox* GetBoxAt(int column, int row) = 0;
         };
     }
 }

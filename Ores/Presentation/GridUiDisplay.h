@@ -5,6 +5,7 @@
 #include "../GameEngine/CompositeGameObject.h"
 #include "../Observers/IBoxesPoppedObserver.h"
 #include "../Observers/INewColumnAddedObserver.h"
+#include "../Observers/IGameOverObserver.h"
 #include "../Services/IGridService.h"
 #include "BoxUiDisplay.h"
 #include <map>
@@ -12,7 +13,7 @@
 namespace ores {
     namespace presentation {
         class GridUiDisplay : public game_engine::CompositeGameObject, observers::IBoxesPoppedObserver,
-            observers::INewColumnAddedObserver {
+            observers::INewColumnAddedObserver, observers::IGameOverObserver {
         public:
             //! Constructor
             /*!
@@ -26,6 +27,7 @@ namespace ores {
 
             void OnBoxesPopped(std::vector<int> boxesPoppedIds);
             void OnNewColumnAdded();
+            void OnGameOver();
         private:
             //! All Box Display by id
             std::map<int, BoxUiDisplay*> boxesById;

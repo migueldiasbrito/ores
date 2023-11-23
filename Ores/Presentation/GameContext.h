@@ -5,11 +5,12 @@
 #include "../GameEngine/CompositeGameObject.h"
 #include "../GameEngine/Engine.h"
 #include "../GameEngine/FontCache.h"
+#include "../Observers/IGameOverObserver.h"
 #include "../Services/IGridService.h"
 
 namespace ores {
     namespace presentation {
-        class GameContext : public game_engine::CompositeGameObject {
+        class GameContext : public game_engine::CompositeGameObject, observers::IGameOverObserver {
         public:
             //! Constructor
             /*!
@@ -17,6 +18,11 @@ namespace ores {
             \param fontCache FontCache to load fonts
             */
             GameContext(game_engine::Engine& engine, game_engine::FontCache& fontCache);
+
+            //! Detaches observer from service
+            virtual ~GameContext();
+
+            void OnGameOver();
         private:
             //! the grid data reader
             data::IGridDataReader* gridDataReader;

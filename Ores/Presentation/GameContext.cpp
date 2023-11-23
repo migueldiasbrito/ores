@@ -24,4 +24,14 @@ presentation::GameContext::GameContext(game_engine::Engine& engine, game_engine:
     AddGameObject(new TimerUiDisplay(800, 0, 400, 100, game_engine::Color(0xFF, 0xFF, 0xFF),
         game_engine::Color(0x00, 0x00, 0x00), game_engine::Color(0xFF, 0xFF, 0xFF), data::Balancing::NEW_COLUMN_TIME,
         [gridService] { gridService->InsertNewColumn(); }));
+
+    this->gridService->AttachGameOverObserver(this);
+}
+
+presentation::GameContext::~GameContext() {
+    this->gridService->DettachGameOverObserver(this);
+}
+
+void presentation::GameContext::OnGameOver() {
+    ((TimerUiDisplay*)this->gameObjects[2])->StopTimer();
 }

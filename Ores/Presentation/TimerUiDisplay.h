@@ -1,7 +1,7 @@
 #ifndef ORES_PRESENTATION_TIMERUIDISPLAY_H_
 #define ORES_PRESENTATION_TIMERUIDISPLAY_H_
 
-#include "../GameEngine/Color.h"*-
+#include "../GameEngine/Color.h"
 #include "../GameEngine/CompositeGameObject.h"
 #include <functional>
 
@@ -25,6 +25,9 @@ namespace ores {
                 game_engine::Color backgroundColor, game_engine::Color timerColor, float time,
                 std::function<void()> callback);
 
+            //! Stops the timer
+            void StopTimer();
+
             void Update(float elapsedTime);
         private:
             //! Initial time
@@ -34,7 +37,10 @@ namespace ores {
             float currentTime = 0.0f;
 
             //! Maximum inner rectangle width
-            float maxTimerWidth;
+            float maxTimerWidth = 0.0f;
+
+            //! Controls if timer is running
+            bool timerRunning = false;
 
             //! Callback to be called when time reaches 0
             std::function<void()> callback;

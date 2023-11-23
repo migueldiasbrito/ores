@@ -82,7 +82,9 @@ void services::GridService::InsertNewColumn() {
     int i = 0;
     
     if (gridModel->boxes[0][0] != NULL) {
-        // GAME OVER
+        for (; i < this->gameOverObservers.size(); i++) {
+            this->gameOverObservers[i]->OnGameOver();
+        }
         return;
     }
 
@@ -129,6 +131,19 @@ void services::GridService::DettachNewColumnAddedObserver(observers::INewColumnA
 
     if (it != this->newColumnAddedObservers.end()) {
         this->newColumnAddedObservers.erase(it);
+    }
+}
+
+void services::GridService::AttachGameOverObserver(observers::IGameOverObserver * observer) {
+    this->gameOverObservers.push_back(observer);
+}
+
+void services::GridService::DettachGameOverObserver(observers::IGameOverObserver *observer) {
+    std::vector<observers::IGameOverObserver*>::iterator it
+        = std::find(this->gameOverObservers.begin(), this->gameOverObservers.end(), observer);
+
+    if (it != this->gameOverObservers.end()) {
+        this->gameOverObservers.erase(it);
     }
 }
 
