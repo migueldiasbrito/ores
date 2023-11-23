@@ -27,17 +27,53 @@ namespace ores {
                 return x >= this->x && x <= this->x + this->width && y >= this->y && y <= this->y + this->height;
             }
 
+            //! Returns rectangle x
+            /*!
+            \return rectangle x coordinate
+            */
+            inline float GetX() { return this->x; }
+
+            //! Returns rectangle y
+            /*!
+            \return rectangle y coordinate
+            */
+            inline float GetY() { return this->y; }
+
+            //! Returns rectangle width
+            /*!
+            \retunr rectangle width
+            */
+            inline float GetWidth() { return this->width; }
+
+            //! Returns rectangle height
+            /*!
+            \param rectangle height
+            */
+            inline float GetHeight() { return this->height; }
+
+            //! Updates rectangle x coordinate
+            /*!
+            \param x new x coordinate
+            */
+            inline void SetX(float x) { this->x = x; }
+
+            //! Updates rectangle y coordinate
+            /*!
+            \param y new y coordinate
+            */
+            inline void SetY(float y) { this->y = y; }
+
             //! Updates rectangle width
             /*!
             \param width new width
             */
-            void SetWidth(float width);
+            inline void SetWidth(float width) { this->width = width; }
 
             //! Updates rectangle height
             /*!
-            \param width new height
+            \param height new height
             */
-            void SetHeight(float height);
+            inline void SetHeight(float height) { this->height = height; }
 
             void Draw(SDL_Renderer* renderer);
 

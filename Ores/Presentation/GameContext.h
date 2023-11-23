@@ -20,7 +20,7 @@ namespace ores {
             GameContext(game_engine::Engine& engine, game_engine::FontCache& fontCache);
 
             //! Detaches observer from service
-            virtual ~GameContext();
+            virtual ~GameContext() override;
 
             void OnGameOver();
         private:

@@ -3,7 +3,7 @@
 namespace engine = ::ores::game_engine;
 
 engine::Image::~Image() {
-    delete this->texture;
+    SDL_DestroyTexture(this->texture);
     this->texture = NULL;
 }
 

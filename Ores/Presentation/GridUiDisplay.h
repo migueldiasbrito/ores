@@ -26,7 +26,7 @@ namespace ores {
                 float height);
 
             //! Detaches observer from service
-            virtual ~GridUiDisplay();
+            virtual ~GridUiDisplay() override;
 
             void OnBoxesPopped(std::vector<int> boxesPoppedIds);
             void OnNewColumnAdded();
@@ -36,19 +36,22 @@ namespace ores {
             std::map<int, BoxUiDisplay*> boxesById;
 
             //! the grid data reader
-            data::IGridDataReader* gridDataReader;
+            data::IGridDataReader* gridDataReader = NULL;
 
             //! the grid service
-            services::IGridService* gridService;
+            services::IGridService* gridService = NULL;
 
             //! individual box width and height
-            float boxDimention;
+            float boxDimention = 0.0f;
 
             //! x coordinate for boxdisplay on (0,0) in the grid
-            float gridXCoord;
+            float gridXCoord = 0.0f;
 
             //! y coordinate for boxdisplay on (0,0) in the grid
-            float gridYCoord;
+            float gridYCoord = 0.0f;
+
+            //! Y offset for new boxes when new column appears
+            float newBoxYOffset = 0.0f;
         };
         
     }

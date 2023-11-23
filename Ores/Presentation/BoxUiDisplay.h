@@ -13,10 +13,15 @@ namespace ores {
             //! Constructor
             /*!
             \param box the box to be displayed
-            \param box width and height
+            \param gridService the grid service
+            \param xCoordOnZero x coordinate for boxdisplay on (0,0) in the grid
+            \param yCoordOnZero y coordinate for boxdisplay on (0,0) in the grid
+            \param boxDimention box width and height
+            \param initialXOffset initial x coordinate offset to be animated
+            \param initialYOffset initial y coordinate offset to be animated
             */
             BoxUiDisplay(data::IBox* box, services::IGridService* gridService, float xCoordOnZero, float yCoordOnZero,
-                float boxDimention);
+                float boxDimention, float initialXOffset = 0.0f, float initialYOffset = 0.0f);
 
             void OnClick(int x, int y);
             void OnBoxPositionUpdated(int column, int row);

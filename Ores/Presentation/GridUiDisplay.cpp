@@ -17,6 +17,8 @@ presentation::GridUiDisplay::GridUiDisplay(data::IGridDataReader* gridDataReader
     this->gridXCoord = width / 2.0f - data::Balancing::COLUMN_COUNT / 2.0f * this->boxDimention;
     this->gridYCoord = height / 2.0f + data::Balancing::ROW_COUNT / 2.0f * this->boxDimention;
 
+    this->newBoxYOffset = - this->gridYCoord;
+
     for (; column < data::Balancing::COLUMN_COUNT; ++column) {
         for (row = 0; row < data::Balancing::ROW_COUNT; row++) {
             box = this->gridDataReader->GetBoxAt(column, row);
@@ -71,7 +73,7 @@ void presentation::GridUiDisplay::OnNewColumnAdded() {
         box = this->gridDataReader->GetBoxAt(column, row);
         if (box != NULL) {
             boxDisplay = new BoxUiDisplay(box, this->gridService, this->gridXCoord, this->gridYCoord,
-                this->boxDimention);
+                this->boxDimention, 0.0f, this->newBoxYOffset);
             AddGameObject(boxDisplay);
             this->boxesById.insert(std::pair<int, BoxUiDisplay*>(box->GetId(), boxDisplay));
         }
