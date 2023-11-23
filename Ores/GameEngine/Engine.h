@@ -32,6 +32,9 @@ namespace ores {
 
             //! Stops the loop after the current iteration
             inline void StopLoop() { this->looping = false; }
+
+            //! Gets windows width and height
+            void GetResolution(int &width, int &height);
         private:
             //! SDL Window.
             /*!

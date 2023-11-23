@@ -3,8 +3,11 @@
 
 namespace presentation = ::ores::presentation;
 
-presentation::BoxUiDisplay::BoxUiDisplay(data::IBox* box, services::IGridService* gridService) : box(box), gridService(gridService),
-    Rectangle(100 + 100 * box->GetColumn(), 1100 - 100 * box->GetRow(), 100, 100, Config::GetColor(box->GetColor())) {
+presentation::BoxUiDisplay::BoxUiDisplay(data::IBox* box, services::IGridService* gridService, float xCoordOnZero,
+    float yCoordOnZero, float boxDimention)
+    : box(box), gridService(gridService), xCoordOnZero(xCoordOnZero), yCoordOnZero(yCoordOnZero),
+    Rectangle(xCoordOnZero + boxDimention * box->GetColumn(), yCoordOnZero - boxDimention * box->GetRow(),
+        boxDimention, boxDimention, Config::GetColor(box->GetColor())) {
     box->AttachBoxPositionUpdatedObserver(this);
 }
 
@@ -15,6 +18,6 @@ void presentation::BoxUiDisplay::OnClick(int x, int y) {
 }
 
 void presentation::BoxUiDisplay::OnBoxPositionUpdated(int column, int row) {
-    this->x = 100 + 100 * column;
-    this->y = 1100 - 100 * row;
+    this->x = this->xCoordOnZero + this->width * column;
+    this->y = this->yCoordOnZero - this->height * row;
 }

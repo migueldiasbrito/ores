@@ -19,8 +19,11 @@ namespace ores {
             /*!
             \param engine Game engine where context is drawn
             \param fontCache FontCache to load fonts
+            \param width window width
+            \param height window height
             */
-            GridUiDisplay(data::IGridDataReader* gridDataReader, services::IGridService* gridService);
+            GridUiDisplay(data::IGridDataReader* gridDataReader, services::IGridService* gridService, float width,
+                float height);
 
             //! Detaches observer from service
             virtual ~GridUiDisplay();
@@ -37,6 +40,15 @@ namespace ores {
 
             //! the grid service
             services::IGridService* gridService;
+
+            //! individual box width and height
+            float boxDimention;
+
+            //! x coordinate for boxdisplay on (0,0) in the grid
+            float gridXCoord;
+
+            //! y coordinate for boxdisplay on (0,0) in the grid
+            float gridYCoord;
         };
         
     }

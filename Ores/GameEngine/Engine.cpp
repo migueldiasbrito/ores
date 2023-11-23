@@ -107,6 +107,10 @@ void engine::Engine::Close() {
     SDL_Quit();
 }
 
+void engine::Engine::GetResolution(int& width, int& height) {
+    SDL_GetWindowSize(this->window, &width, &height);
+}
+
 void engine::Engine::Update(float elapsedTime) {
     int i;
 

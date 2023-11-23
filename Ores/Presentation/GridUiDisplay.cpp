@@ -3,18 +3,26 @@
 
 namespace presentation = ::ores::presentation;
 
-presentation::GridUiDisplay::GridUiDisplay(data::IGridDataReader* gridDataReader, services::IGridService* gridService)
-    : gridDataReader(gridDataReader), gridService(gridService) {
+presentation::GridUiDisplay::GridUiDisplay(data::IGridDataReader* gridDataReader, services::IGridService* gridService,
+    float width, float height) : gridDataReader(gridDataReader), gridService(gridService) {
     data::IBox* box;
     BoxUiDisplay* boxDisplay;
     int column = 0;
     int row = 0;
 
+    this->boxDimention = width > 1000 && height > 1000 ? 100
+        : width> 500 && height> 500 ? 50
+        : 10;
+
+    this->gridXCoord = width / 2.0f - data::Balancing::COLUMN_COUNT / 2.0f * this->boxDimention;
+    this->gridYCoord = height / 2.0f + data::Balancing::ROW_COUNT / 2.0f * this->boxDimention;
+
     for (; column < data::Balancing::COLUMN_COUNT; ++column) {
         for (row = 0; row < data::Balancing::ROW_COUNT; row++) {
             box = this->gridDataReader->GetBoxAt(column, row);
             if (box != NULL) {
-                boxDisplay = new BoxUiDisplay(box, this->gridService);
+                boxDisplay = new BoxUiDisplay(box, this->gridService, this->gridXCoord, this->gridYCoord,
+                    this->boxDimention);
                 AddGameObject(boxDisplay);
                 this->boxesById.insert(std::pair<int, BoxUiDisplay*>(box->GetId(), boxDisplay));
             }
@@ -62,7 +70,8 @@ void presentation::GridUiDisplay::OnNewColumnAdded() {
     for (; row < data::Balancing::ROW_COUNT; row++) {
         box = this->gridDataReader->GetBoxAt(column, row);
         if (box != NULL) {
-            boxDisplay = new BoxUiDisplay(box, this->gridService);
+            boxDisplay = new BoxUiDisplay(box, this->gridService, this->gridXCoord, this->gridYCoord,
+                this->boxDimention);
             AddGameObject(boxDisplay);
             this->boxesById.insert(std::pair<int, BoxUiDisplay*>(box->GetId(), boxDisplay));
         }
